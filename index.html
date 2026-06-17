@@ -31,8 +31,8 @@ html, body {
 
 body {
   background:
-    linear-gradient(90deg, rgba(0,0,0,.82), rgba(0,0,0,.42), rgba(0,0,0,.82)),
-    linear-gradient(180deg, rgba(0,0,0,.25), rgba(0,0,0,.78)),
+    linear-gradient(90deg, rgba(0,0,0,.58), rgba(0,0,0,.24), rgba(0,0,0,.58)),
+    linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.56)),
     url("DSC05268.jpg");
   background-size: cover;
   background-position: center;
@@ -49,7 +49,7 @@ body {
   min-height: 690px;
   padding: 24px 46px 30px;
   border-radius: 34px;
-  background: rgba(0, 0, 0, .36);
+  background: rgba(0, 0, 0, .20);
   border: 1px solid rgba(196,154,84,.38);
   box-shadow: 0 25px 80px rgba(0,0,0,.50);
   overflow: hidden;
@@ -427,18 +427,23 @@ input {
 .iti {
   width: 100% !important;
   direction: ltr !important;
-  position: relative !important;
 }
 
 .iti input {
   width: 100% !important;
 }
 
-.iti__country-list {
+.iti__country-list,
+.iti__dropdown-content {
   direction: ltr !important;
   text-align: left !important;
+  left: 0 !important;
+  right: auto !important;
+  width: min(610px, calc(100vw - 60px)) !important;
+  max-width: min(610px, calc(100vw - 60px)) !important;
+  min-width: 300px !important;
   z-index: 999999 !important;
-  border-radius: 14px !important;
+  box-sizing: border-box !important;
 }
 
 .iti__search-input {
@@ -462,8 +467,89 @@ body.country-dropdown-open .privacy-note {
   pointer-events: none !important;
 }
 
+body.country-dropdown-open .submit {
+  opacity: .25 !important;
+}
 
-/* ===== Mobile final fix ===== */
+
+/* ===== Final iPad/iPhone background + country dropdown fix ===== */
+
+/* خلفية أوضح */
+body {
+  background:
+    linear-gradient(90deg, rgba(0,0,0,.58), rgba(0,0,0,.24), rgba(0,0,0,.58)),
+    linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.56)),
+    url("DSC05268.jpg") !important;
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+}
+
+/* إظهار الخلفية أكثر */
+.page {
+  background: rgba(0, 0, 0, .20) !important;
+}
+
+/* قائمة الدول: تظهر تحت الحقل وبعرض الحقل وتدعم السحب باللمس */
+.iti {
+  width: 100% !important;
+  max-width: 100% !important;
+  position: relative !important;
+  direction: ltr !important;
+  overflow: visible !important;
+}
+
+.iti input {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.iti__dropdown-content,
+.iti__country-list {
+  width: 100% !important;
+  min-width: 100% !important;
+  max-width: 100% !important;
+  left: 0 !important;
+  right: 0 !important;
+  transform: none !important;
+  direction: ltr !important;
+  text-align: left !important;
+  z-index: 999999 !important;
+  box-sizing: border-box !important;
+  border-radius: 14px !important;
+  overflow-x: hidden !important;
+}
+
+.iti__country-list {
+  max-height: 42vh !important;
+  overflow-y: auto !important;
+  -webkit-overflow-scrolling: touch !important;
+  touch-action: pan-y !important;
+  overscroll-behavior: contain !important;
+}
+
+.iti__search-input {
+  width: 100% !important;
+  max-width: 100% !important;
+  height: 52px !important;
+  box-sizing: border-box !important;
+  font-size: 18px !important;
+}
+
+/* عند فتح القائمة نخفي ملاحظات الأسفل حتى لا تتداخل */
+body.country-dropdown-open .promo-note,
+body.country-dropdown-open .privacy-note {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* لا تخفف زر المتابعة */
+body.country-dropdown-open .submit {
+  opacity: 1 !important;
+}
+
+/* تحسين الجوال */
 @media (max-width: 768px) {
   html, body {
     width: 100% !important;
@@ -484,7 +570,7 @@ body.country-dropdown-open .privacy-note {
     padding: 14px 14px 22px !important;
     margin: 0 auto !important;
     border-radius: 22px !important;
-    overflow: hidden !important;
+    overflow: visible !important;
   }
 
   .top,
@@ -577,32 +663,16 @@ body.country-dropdown-open .privacy-note {
     margin-top: 8px !important;
   }
 
-  .iti {
-    width: 100% !important;
-    max-width: 100% !important;
-    position: relative !important;
-    direction: ltr !important;
-  }
-
-  .iti input {
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-
   .iti__country-list {
-    max-height: 45vh !important;
-    z-index: 999999 !important;
-}
+    max-height: 44vh !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+    touch-action: pan-y !important;
+  }
 
   .iti__country {
     font-size: 15px !important;
-    padding: 8px 10px !important;
-  }
-
-  .iti__search-input {
-    width: 100% !important;
-    height: 52px !important;
-    font-size: 18px !important;
+    padding: 9px 10px !important;
   }
 }
 
