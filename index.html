@@ -1024,7 +1024,8 @@ function setLanguage(lang) {
 
   document.getElementById("title").innerText = t[lang].title;
   document.getElementById("subtitle").innerText = t[lang].subtitle;
-  
+  document.getElementById("emailLabel").innerHTML = '<span class="label-icon">✉</span> ' + t[lang].emailLabel;
+  document.getElementById("phoneLabel").innerHTML = '<span class="label-icon">☎</span> ' + t[lang].phoneLabel;
   
   document.getElementById("phoneNote").innerText = t[lang].phoneNote;
   
