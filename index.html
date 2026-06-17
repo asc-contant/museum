@@ -806,6 +806,57 @@ body.country-dropdown-open .submit {
   }
 }
 
+
+/* ===== Marketing consent checkbox ===== */
+.consent-box {
+  position: relative;
+  z-index: 2;
+  width: min(100%, 710px);
+  margin: 8px auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  direction: rtl;
+  color: rgba(255,255,255,.92);
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 1.6;
+  text-align: right;
+}
+
+.consent-box input[type="checkbox"] {
+  width: 22px !important;
+  height: 22px !important;
+  min-width: 22px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  accent-color: var(--green-light);
+  cursor: pointer;
+  box-shadow: none !important;
+}
+
+.consent-box span {
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .consent-box {
+    width: 100% !important;
+    max-width: 100% !important;
+    font-size: 13px !important;
+    gap: 8px !important;
+    margin-top: 8px !important;
+    line-height: 1.5 !important;
+  }
+
+  .consent-box input[type="checkbox"] {
+    width: 19px !important;
+    height: 19px !important;
+    min-width: 19px !important;
+  }
+}
+
 </style>
 </head>
 
@@ -824,9 +875,9 @@ body.country-dropdown-open .submit {
 
     <div class="title-wrap">
       <span class="title-line"></span>
-      <span class="title-mark">✦</span>
+      <span class="title-mark"></span>
       <h1 id="title">مرحبا بك</h1>
-      <span class="title-mark">✦</span>
+      <span class="title-mark"></span>
       <span class="title-line"></span>
     </div>
 
@@ -845,18 +896,23 @@ body.country-dropdown-open .submit {
       <div class="note" id="phoneNote">اختر الدولة ثم أدخل رقم الجوال بدون مفتاح الدولة</div>
     </div>
 
+    <label class="consent-box" for="marketingConsent">
+      <input type="checkbox" id="marketingConsent">
+      <span id="consentText">أوافق على تلقي الرسائل والعروض الترويجية.</span>
+    </label>
+
     <button class="submit" id="submitBtn" type="submit">متابعة</button>
   </form>
 
   <div id="msg"></div>
 
   <div class="promo-note" id="promoNote">
-    <span class="promo-icon"></span>
+    
     <span>لغرض الترويج والإعلانات والعروض</span>
   </div>
 
   <div class="privacy-note" id="privacyNote">
-    <span class="lock-icon"></span>
+   
     <span>بياناتك آمنة ولن يتم مشاركتها مع أي جهة خارجية</span>
   </div>
 </div>
@@ -878,6 +934,7 @@ const t = {
     phoneNote: "اختر الدولة ثم أدخل رقم الجوال بدون مفتاح الدولة",
     promoNote: "لغرض الترويج والإعلانات والعروض",
     privacyNote: "بياناتك آمنة ولن يتم مشاركتها مع أي جهة خارجية",
+    consentText: "أوافق على تلقي الرسائل والعروض الترويجية.",
     button: "متابعة",
     sending: "جاري الإرسال...",
     success: "تم تسجيل البيانات بنجاح",
@@ -896,6 +953,7 @@ const t = {
     phoneNote: "Select the country, then enter the phone number without the country code",
     promoNote: "For promotions, announcements, and offers",
     privacyNote: "Your information is secure and will not be shared with any external party",
+    consentText: "I agree to receive promotional messages and offers.",
     button: "Continue",
     sending: "Sending...",
     success: "Information Submitted Successfully",
@@ -978,9 +1036,12 @@ function setLanguage(lang) {
 
   document.getElementById("title").innerText = t[lang].title;
   document.getElementById("subtitle").innerText = t[lang].subtitle;
-
+  document.getElementById("emailLabel").innerHTML = '<span class="label-icon">✉</span> ' + t[lang].emailLabel;
+  document.getElementById("phoneLabel").innerHTML = '<span class="label-icon">☎</span> ' + t[lang].phoneLabel;
   document.getElementById("phoneNote").innerText = t[lang].phoneNote;
-
+  document.getElementById("promoNote").innerHTML = '<span class="promo-icon">📣</span><span>' + t[lang].promoNote + '</span>';
+  document.getElementById("privacyNote").innerHTML = '<span class="lock-icon">🔒</span><span>' + t[lang].privacyNote + '</span>';
+  document.getElementById("consentText").innerText = t[lang].consentText;
   document.getElementById("submitBtn").innerText = t[lang].button;
 
   document.getElementById("arBtn").classList.toggle("active", lang === "ar");
@@ -1014,6 +1075,7 @@ document.getElementById("customerForm").addEventListener("submit", function(e) {
 
   const email = document.getElementById("email").value.trim();
   const localPhone = phoneInput.value.replace(/\D/g, "");
+  const marketingConsent = document.getElementById("marketingConsent").checked ? "Yes" : "No";
   const btn = document.getElementById("submitBtn");
 
   if (!email || !localPhone) {
@@ -1050,7 +1112,8 @@ document.getElementById("customerForm").addEventListener("submit", function(e) {
       fullPhone: fullPhone,
       countryName: countryName,
       countryIso: countryIso,
-      language: currentLanguage === "ar" ? "Arabic" : "English"
+      language: currentLanguage === "ar" ? "Arabic" : "English",
+      marketingConsent: marketingConsent
     })
   })
   .then(function(response) {
@@ -1061,6 +1124,7 @@ document.getElementById("customerForm").addEventListener("submit", function(e) {
     showMessage(t[currentLanguage].success, "success");
     document.getElementById("email").value = "";
     phoneInput.value = "";
+    document.getElementById("marketingConsent").checked = false;
   })
   .catch(function() {
     showMessage(t[currentLanguage].error, "error");
