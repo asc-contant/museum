@@ -676,6 +676,52 @@ body.country-dropdown-open .submit {
   }
 }
 
+
+/* ===== Final robust country dropdown fix ===== */
+.iti,
+.iti__country-container {
+  overflow: visible !important;
+}
+
+.iti__dropdown-content {
+  position: fixed !important;
+  z-index: 9999999 !important;
+  border-radius: 14px !important;
+  overflow: hidden !important;
+  box-shadow: 0 18px 40px rgba(0,0,0,.35) !important;
+}
+
+.iti__country-list {
+  max-height: 45vh !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  -webkit-overflow-scrolling: touch !important;
+  touch-action: pan-y !important;
+  overscroll-behavior: contain !important;
+}
+
+.iti__country {
+  font-size: 16px !important;
+  padding: 9px 12px !important;
+}
+
+.iti__search-input {
+  width: 100% !important;
+  height: 54px !important;
+  font-size: 18px !important;
+  box-sizing: border-box !important;
+}
+
+@media (max-width: 768px) {
+  .iti__dropdown-content {
+    max-width: calc(100vw - 32px) !important;
+  }
+
+  .iti__country-list {
+    max-height: 42vh !important;
+  }
+}
+
 </style>
 </head>
 
@@ -791,13 +837,57 @@ phoneInput.addEventListener("input", function() {
 });
 
 
+function positionCountryDropdown() {
+  const wrapper = phoneInput.closest(".iti");
+  const dropdown = document.querySelector(".iti__dropdown-content");
+
+  if (!wrapper || !dropdown) return;
+
+  const rect = wrapper.getBoundingClientRect();
+  const padding = 12;
+  const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
+
+  let left = rect.left;
+  let width = rect.width;
+
+  if (left < padding) left = padding;
+  if (left + width > viewportWidth - padding) {
+    width = viewportWidth - (padding * 2);
+    left = padding;
+  }
+
+  dropdown.style.position = "fixed";
+  dropdown.style.left = left + "px";
+  dropdown.style.right = "auto";
+  dropdown.style.top = (rect.bottom + 4) + "px";
+  dropdown.style.width = width + "px";
+  dropdown.style.minWidth = width + "px";
+  dropdown.style.maxWidth = width + "px";
+  dropdown.style.zIndex = "9999999";
+}
+
 phoneInput.addEventListener("open:countrydropdown", function() {
   document.body.classList.add("country-dropdown-open");
+  setTimeout(positionCountryDropdown, 0);
+  setTimeout(positionCountryDropdown, 80);
 });
 
 phoneInput.addEventListener("close:countrydropdown", function() {
   document.body.classList.remove("country-dropdown-open");
 });
+
+window.addEventListener("resize", function() {
+  if (document.body.classList.contains("country-dropdown-open")) {
+    positionCountryDropdown();
+  }
+});
+
+window.addEventListener("scroll", function() {
+  if (document.body.classList.contains("country-dropdown-open")) {
+    positionCountryDropdown();
+  }
+}, true);
+
 
 
 function setLanguage(lang) {
