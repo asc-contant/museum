@@ -434,17 +434,10 @@ input {
   width: 100% !important;
 }
 
-.iti__country-list,
-.iti__dropdown-content {
+.iti__country-list {
   direction: ltr !important;
   text-align: left !important;
-  left: 0 !important;
-  right: 0 !important;
-  width: 100% !important;
-  min-width: 100% !important;
-  max-width: 100% !important;
   z-index: 999999 !important;
-  box-sizing: border-box !important;
   border-radius: 14px !important;
 }
 
@@ -470,6 +463,148 @@ body.country-dropdown-open .privacy-note {
 }
 
 
+/* ===== Mobile final fix ===== */
+@media (max-width: 768px) {
+  html, body {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+  }
+
+  body {
+    padding: 8px !important;
+    background-attachment: scroll !important;
+    align-items: flex-start !important;
+  }
+
+  .page {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-height: auto !important;
+    padding: 14px 14px 22px !important;
+    margin: 0 auto !important;
+    border-radius: 22px !important;
+    overflow: hidden !important;
+  }
+
+  .top,
+  html[dir="rtl"] .top,
+  html[dir="ltr"] .top {
+    justify-content: flex-start !important;
+    width: 100% !important;
+  }
+
+  .lang-buttons {
+    transform: scale(.9);
+    transform-origin: top right;
+  }
+
+  .header,
+  .form,
+  .promo-note,
+  .privacy-note,
+  #msg {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .museum-logo {
+    width: 170px !important;
+    max-width: 78% !important;
+    margin-top: 0 !important;
+    margin-bottom: 8px !important;
+  }
+
+  .title-wrap {
+    gap: 8px !important;
+  }
+
+  .title-line {
+    width: 28px !important;
+  }
+
+  h1 {
+    font-size: 34px !important;
+    line-height: 1.15 !important;
+  }
+
+  .subtitle {
+    font-size: 19px !important;
+    line-height: 1.45 !important;
+    margin: 8px 0 16px !important;
+  }
+
+  label {
+    font-size: 18px !important;
+    margin-bottom: 7px !important;
+  }
+
+  input {
+    width: 100% !important;
+    height: 58px !important;
+    font-size: 19px !important;
+    border-radius: 15px !important;
+    padding: 0 16px !important;
+  }
+
+  .field {
+    margin-bottom: 14px !important;
+  }
+
+  .note {
+    font-size: 12px !important;
+    line-height: 1.4 !important;
+  }
+
+  .submit {
+    width: 100% !important;
+    height: 62px !important;
+    font-size: 22px !important;
+    margin-top: 14px !important;
+  }
+
+  .promo-note {
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    margin-top: 10px !important;
+  }
+
+  .privacy-note {
+    font-size: 12px !important;
+    line-height: 1.5 !important;
+    margin-top: 8px !important;
+  }
+
+  .iti {
+    width: 100% !important;
+    max-width: 100% !important;
+    position: relative !important;
+    direction: ltr !important;
+  }
+
+  .iti input {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .iti__country-list {
+    max-height: 45vh !important;
+    z-index: 999999 !important;
+}
+
+  .iti__country {
+    font-size: 15px !important;
+    padding: 8px 10px !important;
+  }
+
+  .iti__search-input {
+    width: 100% !important;
+    height: 52px !important;
+    font-size: 18px !important;
+  }
+}
 
 </style>
 </head>
