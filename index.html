@@ -825,7 +825,7 @@ body.country-dropdown-open .submit {
     <div class="title-wrap">
       <span class="title-line"></span>
       <span class="title-mark">✦</span>
-      <h1 id="title">مرحباً بك</h1>
+      <h1 id="title">مرحبا بك</h1>
       <span class="title-mark">✦</span>
       <span class="title-line"></span>
     </div>
@@ -835,12 +835,12 @@ body.country-dropdown-open .submit {
 
   <form class="form" id="customerForm">
     <div class="field">
-      <label id="emailLabel" for="email"><span class="label-icon">✉</span> البريد الإلكتروني</label>
+      <label id="emailLabel" for="email"><span class="label-icon"></span> البريد الإلكتروني</label>
       <input id="email" type="email" placeholder="example@email.com" autocomplete="email" required>
     </div>
 
     <div class="field">
-      <label id="phoneLabel" for="phone"><span class="label-icon">☎</span> رقم الجوال</label>
+      <label id="phoneLabel" for="phone"><span class="label-icon"></span> رقم الجوال</label>
       <input id="phone" type="tel" autocomplete="tel" required>
       <div class="note" id="phoneNote">اختر الدولة ثم أدخل رقم الجوال بدون مفتاح الدولة</div>
     </div>
@@ -851,12 +851,12 @@ body.country-dropdown-open .submit {
   <div id="msg"></div>
 
   <div class="promo-note" id="promoNote">
-    <span class="promo-icon">📣</span>
+    <span class="promo-icon"></span>
     <span>لغرض الترويج والإعلانات والعروض</span>
   </div>
 
   <div class="privacy-note" id="privacyNote">
-    <span class="lock-icon">🔒</span>
+    <span class="lock-icon"></span>
     <span>بياناتك آمنة ولن يتم مشاركتها مع أي جهة خارجية</span>
   </div>
 </div>
@@ -871,7 +871,7 @@ const t = {
   ar: {
     dir: "rtl",
     lang: "ar",
-    title: "مرحباً بك",
+    title: "مرحبا بك",
     subtitle: "الرجاء إدخال بيانات التواصل",
     emailLabel: "البريد الإلكتروني",
     phoneLabel: "رقم الجوال",
@@ -978,11 +978,9 @@ function setLanguage(lang) {
 
   document.getElementById("title").innerText = t[lang].title;
   document.getElementById("subtitle").innerText = t[lang].subtitle;
-  document.getElementById("emailLabel").innerHTML = '<span class="label-icon">✉</span> ' + t[lang].emailLabel;
-  document.getElementById("phoneLabel").innerHTML = '<span class="label-icon">☎</span> ' + t[lang].phoneLabel;
+
   document.getElementById("phoneNote").innerText = t[lang].phoneNote;
-  document.getElementById("promoNote").innerHTML = '<span class="promo-icon">📣</span><span>' + t[lang].promoNote + '</span>';
-  document.getElementById("privacyNote").innerHTML = '<span class="lock-icon">🔒</span><span>' + t[lang].privacyNote + '</span>';
+
   document.getElementById("submitBtn").innerText = t[lang].button;
 
   document.getElementById("arBtn").classList.toggle("active", lang === "ar");
