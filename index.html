@@ -923,7 +923,7 @@ const t = {
     subtitle: "الرجاء إدخال بيانات التواصل",
     emailLabel: "البريد الإلكتروني",
     phoneLabel: "رقم الجوال",
-    phoneNote: "اختر الدولة ثم أدخل رقم الجوال بدون مفتاح الدولة"
+    phoneNote: "اختر الدولة ثم أدخل رقم الجوال بدون مفتاح الدولة",
     consentText: "أوافق على تلقي الرسائل والعروض الترويجية.",
     button: "متابعة",
     sending: "جاري الإرسال...",
@@ -1113,7 +1113,7 @@ document.getElementById("customerForm").addEventListener("submit", function(e) {
     showMessage(t[currentLanguage].success, "success");
     document.getElementById("email").value = "";
     phoneInput.value = "";
-    document.getElementById("marketingConsent").checked = false;
+    document.getElementById("marketingConsent").checked = true;
   })
   .catch(function() {
     showMessage(t[currentLanguage].error, "error");
