@@ -677,48 +677,132 @@ body.country-dropdown-open .submit {
 }
 
 
-/* ===== Final robust country dropdown fix ===== */
-.iti,
+
+
+
+
+/* ===== Final fixed phone country dropdown ===== */
+.iti {
+  width: 100% !important;
+  max-width: 100% !important;
+  direction: ltr !important;
+  position: relative !important;
+  overflow: visible !important;
+}
+
+.iti input {
+  width: 100% !important;
+}
+
 .iti__country-container {
   overflow: visible !important;
 }
 
 .iti__dropdown-content {
   position: fixed !important;
+  left: var(--country-dd-left, 0px) !important;
+  top: var(--country-dd-top, 0px) !important;
+  width: var(--country-dd-width, 520px) !important;
+  min-width: var(--country-dd-width, 520px) !important;
+  max-width: var(--country-dd-width, 520px) !important;
+  right: auto !important;
+  transform: none !important;
   z-index: 9999999 !important;
-  border-radius: 14px !important;
+  background: #ffffff !important;
+  border: 1px solid #d1d1d1 !important;
+  border-radius: 8px !important;
+  box-shadow: 0 12px 30px rgba(0,0,0,.30) !important;
   overflow: hidden !important;
-  box-shadow: 0 18px 40px rgba(0,0,0,.35) !important;
 }
 
 .iti__country-list {
-  max-height: 45vh !important;
+  width: 100% !important;
+  min-width: 100% !important;
+  max-width: 100% !important;
+  max-height: 260px !important;
   overflow-y: auto !important;
   overflow-x: hidden !important;
   -webkit-overflow-scrolling: touch !important;
   touch-action: pan-y !important;
   overscroll-behavior: contain !important;
+  direction: ltr !important;
+  text-align: left !important;
+  background: #fff !important;
+  color: #111 !important;
+  font-size: 16px !important;
 }
 
 .iti__country {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  min-height: 40px !important;
+  padding: 8px 12px !important;
+  color: #111 !important;
   font-size: 16px !important;
-  padding: 9px 12px !important;
+  white-space: nowrap !important;
+}
+
+.iti__country:hover,
+.iti__country.iti__highlight {
+  background: #f2f2f2 !important;
+}
+
+.iti__country-name {
+  color: #111 !important;
+}
+
+.iti__dial-code {
+  color: #8e8e8e !important;
+  margin-left: auto !important;
 }
 
 .iti__search-input {
   width: 100% !important;
-  height: 54px !important;
-  font-size: 18px !important;
+  max-width: 100% !important;
+  height: 52px !important;
+  font-size: 20px !important;
+  padding: 0 14px !important;
+  border: 0 !important;
+  border-bottom: 1px solid #d1d1d1 !important;
+  border-radius: 0 !important;
+  background: #4a4a4a !important;
+  color: #fff !important;
   box-sizing: border-box !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.iti__search-input::placeholder {
+  color: #d8d8d8 !important;
+}
+
+body.country-dropdown-open .promo-note,
+body.country-dropdown-open .privacy-note {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+body.country-dropdown-open .submit {
+  opacity: 1 !important;
 }
 
 @media (max-width: 768px) {
   .iti__dropdown-content {
-    max-width: calc(100vw - 32px) !important;
+    width: var(--country-dd-width, calc(100vw - 28px)) !important;
+    min-width: var(--country-dd-width, calc(100vw - 28px)) !important;
+    max-width: var(--country-dd-width, calc(100vw - 28px)) !important;
   }
 
   .iti__country-list {
     max-height: 42vh !important;
+  }
+
+  .iti__country {
+    font-size: 15px !important;
+    min-height: 40px !important;
+    padding: 8px 10px !important;
   }
 }
 
@@ -840,36 +924,32 @@ phoneInput.addEventListener("input", function() {
 function positionCountryDropdown() {
   const wrapper = phoneInput.closest(".iti");
   const dropdown = document.querySelector(".iti__dropdown-content");
-
   if (!wrapper || !dropdown) return;
 
   const rect = wrapper.getBoundingClientRect();
   const padding = 12;
-  const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
+  const vw = window.innerWidth || document.documentElement.clientWidth;
 
   let left = rect.left;
   let width = rect.width;
 
+  if (width < 280) width = Math.min(520, vw - padding * 2);
   if (left < padding) left = padding;
-  if (left + width > viewportWidth - padding) {
-    width = viewportWidth - (padding * 2);
+  if (left + width > vw - padding) {
     left = padding;
+    width = vw - padding * 2;
   }
 
-  dropdown.style.position = "fixed";
-  dropdown.style.left = left + "px";
-  dropdown.style.right = "auto";
-  dropdown.style.top = (rect.bottom + 4) + "px";
-  dropdown.style.width = width + "px";
-  dropdown.style.minWidth = width + "px";
-  dropdown.style.maxWidth = width + "px";
-  dropdown.style.zIndex = "9999999";
+  document.documentElement.style.setProperty("--country-dd-left", left + "px");
+  document.documentElement.style.setProperty("--country-dd-top", (rect.bottom + 4) + "px");
+  document.documentElement.style.setProperty("--country-dd-width", width + "px");
 }
 
 phoneInput.addEventListener("open:countrydropdown", function() {
   document.body.classList.add("country-dropdown-open");
   setTimeout(positionCountryDropdown, 0);
-  setTimeout(positionCountryDropdown, 80);
+  setTimeout(positionCountryDropdown, 100);
+  setTimeout(positionCountryDropdown, 250);
 });
 
 phoneInput.addEventListener("close:countrydropdown", function() {
@@ -887,7 +967,6 @@ window.addEventListener("scroll", function() {
     positionCountryDropdown();
   }
 }, true);
-
 
 
 function setLanguage(lang) {
